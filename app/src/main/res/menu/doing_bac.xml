@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="风景画"
+        android:id="@+id/paint"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:title="一句话"
+        android:id="@+id/word"
+        app:showAsAction="never"
+        />
+    <item
+        android:title="小黄"
+        android:id="@+id/yellow"
+        app:showAsAction="never"
+        />
+    <item
+        android:title="纯色"
+        android:id="@+id/always"
+        app:showAsAction="never"
+        />
+    <item
+        android:title="五颜六色"
+        android:id="@+id/colorful"
+        app:showAsAction="never"
+        />
+    <item
+        android:title="添加活动"
+        android:icon="@drawable/add"
+        android:id="@+id/add"
+        app:showAsAction="always"
+        />
+
+</menu>
