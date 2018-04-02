@@ -52,6 +52,7 @@ public class PhoneModeActivity extends AppCompatActivity implements View.OnClick
         }
 
 
+        //点击进入记事本、未来计划
         FloatingActionButton phoneFab = (FloatingActionButton) findViewById(R.id.phone_fab);
             phoneFab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,7 +66,9 @@ public class PhoneModeActivity extends AppCompatActivity implements View.OnClick
                     node.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Toast.makeText(mContext,"记事本",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PhoneModeActivity.this,NoteActivity.class);
+                            startActivity(intent);
+                            dialog.dismiss();
 
                         }
                     });

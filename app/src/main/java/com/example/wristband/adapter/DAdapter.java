@@ -1,7 +1,6 @@
 package com.example.wristband.adapter;
 
 import android.graphics.Color;
-import android.widget.BaseAdapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -11,9 +10,6 @@ import com.example.wristband.utils.Constans;
 
 import java.util.List;
 
-/**
- * Created by 刘青林 on 2018/3/26.
- */
 
 public class DAdapter extends BaseQuickAdapter<Doing,BaseViewHolder> {
 
