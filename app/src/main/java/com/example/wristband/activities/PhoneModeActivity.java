@@ -75,7 +75,9 @@ public class PhoneModeActivity extends AppCompatActivity implements View.OnClick
                     future.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Toast.makeText(mContext,"未来计划",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PhoneModeActivity.this,NoteActivity.class);
+                            startActivity(intent);
+                            dialog.dismiss();
 
                         }
                     });

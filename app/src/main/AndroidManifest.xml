@@ -27,10 +27,10 @@
         <activity
             android:name=".activities.StatisticsActivity"
             android:label="用户名" />
-        <activity android:name=".StackTestActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.Starttask" />
-        <activity android:name=".activities.NoteActivity"></activity>
+        <activity android:name=".activities.NoteActivity"
+            android:label="记事本"></activity>
     </application>
 
 </manifest>

@@ -2,10 +2,12 @@ package com.example.wristband.activities;
 
 import android.content.DialogInterface;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -56,6 +58,11 @@ public class NoteActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onSupportActionModeStarted(@NonNull ActionMode mode) {
+        super.onSupportActionModeStarted(mode);
+    }
+
     //初始化RecyclerView
     private void setNoteRecycler() {
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager (2,StaggeredGridLayoutManager.VERTICAL);
@@ -67,6 +74,28 @@ public class NoteActivity extends AppCompatActivity {
         ItemDragAndSwipeCallback itemDragAndSwipeCallback = new ItemDragAndSwipeCallback(mAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
+
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view,final int position) {
+                final AlertDialog.Builder delete = new AlertDialog.Builder(NoteActivity.this);
+                delete.setTitle("删除活动");
+                delete.setMessage("确定删除此活动？");
+                delete.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        deleteData(position);
+                    }
+                });
+                delete.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                delete.show();
+            }
+        });
 
         // 开启拖拽
         mAdapter.enableDragItem(itemTouchHelper, R.id.note_item_cardview, true);
@@ -83,45 +112,6 @@ public class NoteActivity extends AppCompatActivity {
 
             @Override
             public void onItemDragEnd(RecyclerView.ViewHolder viewHolder, int pos) {
-
-            }
-        });
-
-        // 开启滑动删除
-        mAdapter.enableSwipeItem();
-        mAdapter.setOnItemSwipeListener(new OnItemSwipeListener() {
-            @Override
-            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
-
-            }
-
-            @Override
-            public void clearView(RecyclerView.ViewHolder viewHolder, final int pos) {
-//                final AlertDialog.Builder delete = new AlertDialog.Builder(NoteActivity.this);
-//                delete.setTitle("删除活动");
-//                delete.setMessage("确定删除此活动？");
-//                delete.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        deleteData(pos);//删除
-//                    }
-//                });
-//                delete.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                });
-//                delete.show();
-            }
-
-            @Override
-            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
-
-            }
-
-            @Override
-            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
 
             }
         });

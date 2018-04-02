@@ -135,8 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         blueTooth.setOnClickListener(this);
         phone.setOnClickListener(this);
 
-        Button stackTest = (Button) findViewById(R.id.stackView);
-        stackTest.setOnClickListener(this);
+
     }
 
     //打开侧滑菜单
@@ -159,10 +158,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.phone:
                 Intent intent = new Intent(MainActivity.this, PhoneModeActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.stackView:
-                Intent intent1 = new Intent(MainActivity.this,StackTestActivity.class);
-                startActivity(intent1);
                 break;
             case R.id.main_fab:
                 mDrawerLayout.openDrawer(GravityCompat.START);
