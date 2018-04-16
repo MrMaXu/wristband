@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.example.wristband.activities.BlueToothActivity;
 import com.example.wristband.activities.LoginActivity;
 import com.example.wristband.activities.PhoneModeActivity;
 import com.example.wristband.activities.StatisticsActivity;
@@ -153,7 +154,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.blue_tooth:
-                Toast.makeText(MainActivity.this,"蓝牙模块",Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(MainActivity.this, BlueToothActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.phone:
                 Intent intent = new Intent(MainActivity.this, PhoneModeActivity.class);
