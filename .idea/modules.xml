@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\GitHub\TW\wristband\app\app.iml" filepath="E:\GitHub\TW\wristband\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/wristband.iml" filepath="$PROJECT_DIR$/wristband.iml" />
-      <module fileurl="file://E:\GitHub\TW\wristband\wristband.iml" filepath="E:\GitHub\TW\wristband\wristband.iml" />
     </modules>
   </component>
 </project>
