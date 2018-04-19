@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.wristband">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
