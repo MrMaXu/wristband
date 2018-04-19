@@ -31,12 +31,13 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
-public class PhoneModeActivity extends AppCompatActivity implements View.OnClickListener{
+public class PhoneModeActivity extends AppCompatActivity{
 
     private List<Doing> doingList;
     private RecyclerView doingRecycler;
     private DAdapter dAdapter;
     private Context mContext = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,15 +231,5 @@ public class PhoneModeActivity extends AppCompatActivity implements View.OnClick
         dAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.node:
-                break;
-            case R.id.future:
-                break;
-            default:
-                break;
-        }
-    }
+
 }
