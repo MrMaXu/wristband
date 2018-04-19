@@ -7,15 +7,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.wristband.MainActivity;
 import com.example.wristband.R;
 import com.example.wristband.bluetooth.ReceiveSocketService;
 import com.example.wristband.bluetooth.SendSocketService;
@@ -32,11 +37,10 @@ public class BlueToothSocketActivity extends AppCompatActivity implements View.O
     private Button btn_go_text;
     //修改番茄时间
     private Button change_tomato_time;
-    //同步手机时间-向手环发送
-    private Button btn_syn_time;
+
     //现在的番茄时间为：
     private TextView tv_now_tomato_time;
-//获取手环番茄数
+    //获取手环番茄数
     private Button get_wis_tomato_nubmer;
     //显示手环番茄数
     private TextView wis_tomato_number;
@@ -47,21 +51,24 @@ public class BlueToothSocketActivity extends AppCompatActivity implements View.O
     private TextView phone_time;
     public String hour, minute, second;
 
-
+public  static BlueToothSocketActivity blueToothSocketActivity;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+
             switch (msg.what) {
                 case 1://文本消息
                     if (TextUtils.isEmpty(msg.obj.toString())) return;
                     content_ly.addView(getLeftTextView(msg.obj.toString()));
 
                     break;
-                case 2://系统时间
+
+                case 2://更改系统时间
                     phone_time.setText(hour + ":" + minute + ":" + second);
                     break;
 
-            }
+
+        }
         }
     };
 
@@ -69,16 +76,23 @@ public class BlueToothSocketActivity extends AppCompatActivity implements View.O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetootn_socket);
+        initData();
+        initView();
+
+        blueToothSocketActivity=this;
+    }
+
+
+    //初始化视图
+    public void initView() {
         //获取手机模式番茄设置页面的 番茄时间
-        Intent intent = getIntent();
-        tomato_time = intent.getStringExtra("timeLong");
+
 
         content_ly = (LinearLayout) findViewById(R.id.content_ly);
         et_go_edit_text = (EditText) findViewById(R.id.et_go_edit_text);
         btn_go_text = (Button) findViewById(R.id.btn_go_text);
         //显示系统时间
         phone_time = findViewById(R.id.phone_time);
-
 
 
         //显示更改后的番茄时间
@@ -92,29 +106,38 @@ public class BlueToothSocketActivity extends AppCompatActivity implements View.O
         //显示手环今日番茄数
         wis_tomato_number = findViewById(R.id.wis_tomato_number);
 
-
-
-
-        //显示计划表中的番茄时间
-        tv_now_tomato_time.setText("当前番茄时间为" + tomato_time);
         //在同步按钮上添加监听事件
         change_tomato_time.setOnClickListener(this);
-        btn_syn_time.setOnClickListener(this);
         //发送消息
         btn_go_text.setOnClickListener(this);
+    }
+
+    //初始化数据
+    public void initData() {
 
 
+
+        if(tv_now_tomato_time.getText()==null) {
+            Intent intent = getIntent();
+            tomato_time = intent.getStringExtra("timeLong");
+            if (tomato_time==null){
+                tv_now_tomato_time.setText("25分钟");
+            }else{
+                tv_now_tomato_time.setText("timeLong");
+            }
+          }
 
         //开启一个线程：获取服务端的服务，读取信息
         new Thread(new Runnable() {
             @Override
             public void run() {
                 ReceiveSocketService.receiveMessage(handler);
+
             }
         }).start();
 
 
-        //开启线程，刷新当前系统时间
+       //开启线程，刷新当前系统时间
         new Thread() {
             @Override
             public void run() {
@@ -142,7 +165,6 @@ public class BlueToothSocketActivity extends AppCompatActivity implements View.O
 
     }
 
-
     //点击事件
     @Override
     public void onClick(View v) {
@@ -156,34 +178,32 @@ public class BlueToothSocketActivity extends AppCompatActivity implements View.O
                 break;
             //点击按钮 发送番茄时间 到手环
             case R.id.change_tomato_time:
-                 final EditText changed_tomato_time=new EditText(this);
+                final EditText changed_tomato_time = new EditText(this);
               /*   final EditText changed_rest_time=new EditText(this);*/
                 changed_tomato_time.setHint("在这里输入你要修改的番茄时间");
               /*  changed_rest_time.setHint("在这里输入你要修改的休息时间");*/
-                AlertDialog.Builder builder=new AlertDialog.Builder(this)
+                AlertDialog.Builder builder = new AlertDialog.Builder(this)
                         .setTitle("请修改番茄工作时间")
-                       .setIcon(R.drawable.fanqie)
+                        .setIcon(R.drawable.fanqie)
                         .setView(changed_tomato_time);
-                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                tv_now_tomato_time.setText(changed_tomato_time.getText().toString());
-                                SendSocketService.sendMessage("请将番茄时间修改为"+changed_tomato_time.getText().toString());
-                            }
-                        });
-                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        tv_now_tomato_time.setText(changed_tomato_time.getText().toString());
+                        SendSocketService.sendMessage("请将番茄时间修改为" + changed_tomato_time.getText().toString());
+                        Toast.makeText(BlueToothSocketActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                            }
-                        });
-                        builder.show();
+                    }
+                });
+                builder.show();
 
                 break;
-          /*  //点击按钮  发送手机上的系统时间 到手环
-            case R.id.btn_syn_time:
-                SendSocketService.sendMessage("请将手环时间修改为");
-                break;*/
+
             //获取手环今日番茄数——未完成
             case R.id.get_wis_tomato_nubmer:
                 SendSocketService.sendMessage("请问目前手环记录的番茄数为多少个？");
@@ -218,4 +238,18 @@ public class BlueToothSocketActivity extends AppCompatActivity implements View.O
         textView.setText(message);
         return textView;
     }
+//监听返回键，返回 计划表
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) { //表示按返回键 时的操作
+                // 监听到返回按钮点击事件
+                Intent intent1 = new Intent(BlueToothSocketActivity.this, PhoneModeActivity.class);
+                startActivity(intent1);
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
+

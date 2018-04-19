@@ -1,6 +1,7 @@
 package com.example.wristband;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -21,9 +22,13 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.wristband.activities.BlueToothActivity;
+import com.example.wristband.activities.BlueToothSocketActivity;
 import com.example.wristband.activities.LoginActivity;
 import com.example.wristband.activities.PhoneModeActivity;
 import com.example.wristband.activities.StatisticsActivity;
+import com.example.wristband.bluetooth.BltContant;
+import com.example.wristband.bluetooth.BltManager;
+import com.example.wristband.bluetooth.BltService;
 import com.gc.materialdesign.widgets.ColorSelector;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -154,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.blue_tooth:
+
                 Intent intent1 = new Intent(MainActivity.this, BlueToothActivity.class);
                 startActivity(intent1);
                 break;
@@ -173,5 +179,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+    //关闭手机系统蓝牙的按钮
+    public void test(View view){
+        //打开系统自带蓝牙页面
+        this.startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));
     }
 }
