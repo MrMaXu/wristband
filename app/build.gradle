@@ -47,6 +47,10 @@ dependencies {
     compile 'com.github.aliab:circular-music-progressbar:v1.3.0'
     //BRVAH
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    //zhy okhttputils
+    compile 'com.zhy:okhttputils:2.0.0'
+    //Gson
+    compile 'com.google.code.gson:gson:2.2.4'
 }
 repositories {
     maven { url "https://jitpack.io" }

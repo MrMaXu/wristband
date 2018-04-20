@@ -10,8 +10,34 @@ import java.util.List;
 
 public class Constans {
 
-    public static int relaxTime;//休息时间
+    public static String httpHead = "http://192.168.128.66:8080/";
 
+    //User Controller Url
+    public static String USER_JUDGE_LOGIN = "user/judgeLogin";
+    public static String USER_DELETE_USER = "user/deleteUser";
+    public static String USER_REGISTER = "user/register";
+    public static String USER_UPDATE_USER= "user/updateUser";
+
+    //Plan Controller Url
+    public static String PLAN_DELETE = "plan/delete";
+    public static String PLAN_INSERT = "plan/insert";
+    public static String PLAM_UPDATE = "plan/update";
+    public static String PLAN_SELECT = "plan/select";
+
+    //Notebook Controller Url
+    public static String NOTEBOOK_DELETE = "notebook/delete";
+    public static String NOTEBOOK_INSERT = "notebook/insert";
+    public static String NOTEBOOK_UPDATE = "notebook/update";
+    public static String NOTEBOOK_SELECT = "notebook/select";
+
+    //Diary Controller Url
+    public static String DIARY_SELECT = "diary/select";
+    public static String DIARY_SELECT_ALLTIME = "diary/selectAllTime";
+    public static String DIARY_SELECT_ALLPTOMATO = "diary/selectAllTomato";
+    public static String DIARY_UPDATE = "diary/update";
+
+
+    public static int relaxTime;//休息时间
 
     public static Integer[] Colors = new Integer[] {
             R.color.color_1,

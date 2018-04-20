@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,6 +19,7 @@
 
         />
 
+    <!--输入账号密码开始-->
     <LinearLayout
         android:id="@+id/input"
         android:layout_width="match_parent"
@@ -29,6 +29,41 @@
         android:layout_marginRight="28dp"
         android:orientation="vertical">
 
+        <!-- 输入手机号-->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/user_phone"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:textSize="16sp"
+                android:ems="10"
+                android:hint="请输入手机号"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:cursorVisible="false"
+                >
+            </EditText>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="3.0px"
+            android:layout_marginLeft="1.0px"
+            android:layout_marginRight="1.0px"
+            android:background="#ffc0c3c4" />
+
+        <!-- 输入账号 -->
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="44dp"
@@ -46,25 +81,30 @@
                 android:textSize="16sp"
                 android:ems="10"
                 android:hint="请输入账号"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
                 android:cursorVisible="false"
                 >
             </EditText>
 
 
         </LinearLayout>
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="3.0px"
             android:layout_marginLeft="1.0px"
             android:layout_marginRight="1.0px"
             android:background="#ffc0c3c4" />
+
+        <!--输入密码-->
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="44dp"
             android:gravity="center_vertical">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/user_password"
                 android:layout_width="fill_parent"
                 android:layout_height="44.0dip"
                 android:background="#00ffffff"
@@ -72,8 +112,8 @@
                 android:inputType="textPassword"
                 android:maxLength="16"
                 android:maxLines="1"
-                android:textColor="#ff1d1d1d"
-                android:textColorHint="#ff666666"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
                 android:textSize="16.0sp"
                 android:hint="请输入密码"
                 android:cursorVisible="false"
@@ -86,10 +126,11 @@
             android:layout_marginRight="1.0px"
             android:background="#ffc0c3c4" />
     </LinearLayout>
+    <!--输入账号密码结束-->
 
     <Button
 
-        android:id="@+id/login_Btn"
+        android:id="@+id/btn_login"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/input"
@@ -104,10 +145,10 @@
         />
 
     <Button
-        android:id="@+id/registBtn"
+        android:id="@+id/btn_regist"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_Btn"
+        android:layout_below="@+id/btn_login"
         android:layout_marginTop="10dp"
         android:background="#55585b"
         android:text="注      册"

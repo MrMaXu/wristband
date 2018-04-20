@@ -2,13 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.wristband">
-    <!--扫描已配对的蓝牙设备权限-->
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <!--修改蓝牙设备的可见性的权限-->
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
-        />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"/>
+
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -35,10 +34,10 @@
             android:label="用户名" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.Starttask" />
-        <activity android:name=".activities.BlueToothActivity"/>
-        <activity android:name=".activities.BlueToothSocketActivity"/>
         <activity android:name=".activities.NoteActivity"
             android:label="记事本"></activity>
+        <activity android:name=".activities.BlueToothActivity"/>
+        <activity android:name=".activities.BlueToothSocketActivity"/>
     </application>
 
 </manifest>

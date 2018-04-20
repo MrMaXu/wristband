@@ -1,4 +1,4 @@
-package com.example.wristband.activities;
+﻿package com.example.wristband.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,9 +20,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.wristband.MainActivity;
 import com.example.wristband.R;
@@ -33,12 +30,13 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
-public class PhoneModeActivity extends AppCompatActivity implements View.OnClickListener{
+public class PhoneModeActivity extends AppCompatActivity{
 
     private List<Doing> doingList;
     private RecyclerView doingRecycler;
     private DAdapter dAdapter;
     private Context mContext = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,17 +232,7 @@ public class PhoneModeActivity extends AppCompatActivity implements View.OnClick
         dAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.node:
-                break;
-            case R.id.future:
-                break;
-            default:
-                break;
-        }
-    }
+
     //监听返回键，返回主菜单
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -257,4 +245,5 @@ public class PhoneModeActivity extends AppCompatActivity implements View.OnClick
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }
