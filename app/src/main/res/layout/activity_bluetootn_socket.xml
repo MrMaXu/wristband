@@ -124,4 +124,8 @@
 
         />
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(如果发送文本消息成功，将复制到图片上)"/>
 </LinearLayout>

@@ -1,13 +1,16 @@
 package com.example.wristband.activities;
 
 import android.annotation.TargetApi;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothProfile;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,9 +25,12 @@ import android.widget.Toast;
 import com.example.wristband.R;
 import com.example.wristband.bluetooth.BltContant;
 import com.example.wristband.bluetooth.BltManager;
+import com.example.wristband.bluetooth.BltService;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class BlueToothActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
@@ -35,12 +41,12 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
     private List<BluetoothDevice> bltList;
     //自定义适配器
     private BlueToothActivity.MyAdapter myAdapter;
-   //搜索蓝牙时的圆形滚动条
+    //搜索蓝牙时的圆形滚动条
     private ProgressBar btl_bar;
     //滚动条后的提示文本
     private TextView blt_status_text;
 
-
+    boolean a;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -66,7 +72,7 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
                 case 4://已连接某个设备
                     //搜索蓝牙时的圆形滚动条可见
                     btl_bar.setVisibility(View.GONE);
-                   //指代对方蓝牙设备
+                    //指代对方蓝牙设备
                     BluetoothDevice device1 = (BluetoothDevice) msg.obj;
                     //更改滚动条后的提示文本为：某 蓝牙设备已经介入
                     blt_status_text.setText("已连接" + device1.getName() + "设备");
@@ -91,6 +97,7 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
         initView();
         initData();
     }
+
     //初始化视图
     private void initView() {
 
@@ -103,8 +110,6 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
         btl_bar.setVisibility(View.VISIBLE);
 
 
-
-
     }
 
     //初始化数据
@@ -115,25 +120,73 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
         myAdapter = new MyAdapter();
         blue_list.setOnItemClickListener(this);
         blue_list.setAdapter(myAdapter);
+
+
+
+       /* removePairDevice();*/
         //检查蓝牙是否开启
         BltManager.getInstance().checkBleDevice(this);
         //注册蓝牙扫描广播
         blueToothRegister();
 
-        //判断 如果蓝牙模块已经开启
-        if (BltManager.getInstance().getmBluetoothAdapter() != null && BltManager.getInstance().getmBluetoothAdapter().isEnabled()) {
-            // 获取 配对过的列表并尝试连接
-            BltManager.getInstance().getBltList();
-            //连接后跳转 设置页面
+
+
+  /* //定义穿戴设备
+       int health=BltManager.getInstance().getmBluetoothAdapter().getProfileConnectionState(BluetoothProfile.HEALTH);*/
+
+
+
+
+  
+
+        //暂时采用这种方式进行判断·········
+        if (BltService.getInstance().getBluetoothServerSocket() != null) {
             Intent intent1 = new Intent(BlueToothActivity.this, BlueToothSocketActivity.class);
             startActivity(intent1);
         } else {
-            //检测蓝牙开关情况
+            removePairDevice();
+            //更新蓝牙开关状态
             checkBlueTooth();
-            blt_status_text.setText("请等待正在搜索设备");
-            //开始搜索周围蓝牙
+            //第一次进来搜索设备
             BltManager.getInstance().clickBlt(this, BltContant.BLUE_TOOTH_SEARTH);
         }
+
+
+
+
+
+     /*   BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        Class<BluetoothAdapter> bluetoothAdapterClass = BluetoothAdapter.class;//得到BluetoothAdapter的Class对象
+        try {//得到连接状态的方法
+            Method method = bluetoothAdapterClass.getDeclaredMethod("getConnectionState", (Class[]) null);
+            //打开权限
+            method.setAccessible(true);
+            int state = (int) method.invoke(adapter, (Object[]) null);
+
+            if (state == BluetoothAdapter.STATE_CONNECTED) {
+
+                Set<BluetoothDevice> devices = adapter.getBondedDevices();
+
+
+                for (BluetoothDevice device : devices) {
+                    Method isConnectedMethod = BluetoothDevice.class.getDeclaredMethod("isConnected", (Class[]) null);
+                    method.setAccessible(true);
+                    boolean isConnected = (boolean) isConnectedMethod.invoke(device, (Object[]) null);
+                    if (isConnected) {
+                        Intent intent1 = new Intent(BlueToothActivity.this, BlueToothSocketActivity.class);
+                        startActivity(intent1);
+                    }else{
+                        BltManager.getInstance().checkBleDevice(this);
+                        blueToothRegister();
+                        checkBlueTooth();
+                        BltManager.getInstance().clickBlt(this, BltContant.BLUE_TOOTH_SEARTH);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
 
     }
 
@@ -172,9 +225,10 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
             public void onBltEnd(BluetoothDevice device) {
                 btl_bar.setVisibility(View.GONE);
                 blt_status_text.setText("连接" + device.getName() + "完成");
-
-               /* Intent intent = new Intent(BlueToothActivity.this, BlueToothSocketActivity.class);
-                startActivity(intent);*/
+                a = true;
+//连接完成，跳 同步 页面
+                Intent intent = new Intent(BlueToothActivity.this, BlueToothSocketActivity.class);
+                startActivity(intent);
             }
 
             /**取消连接
@@ -195,7 +249,7 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
 
 
     private void checkBlueTooth() {
-        if (BltManager.getInstance().getmBluetoothAdapter() == null || !BltManager.getInstance().getmBluetoothAdapter().isEnabled()) {
+        if (BltManager.getInstance().getmBluetoothAdapter() == null && !BltManager.getInstance().getmBluetoothAdapter().isEnabled()) {
             //蓝牙开关 显示  关
             blue_switch.setChecked(false);
         } else
@@ -209,11 +263,11 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
                     //启用蓝牙
                     BltManager.getInstance().clickBlt(BlueToothActivity.this, BltContant.BLUE_TOOTH_OPEN);
 
-                    //搜素设备
+                    //设置进度条
                     btl_bar.setVisibility(View.VISIBLE);
                     blt_status_text.setText("正在搜索设备，请等待");
                     BltManager.getInstance().clickBlt(BlueToothActivity.this, BltContant.BLUE_TOOTH_SEARTH);
-                }  else
+                } else
                     //禁用蓝牙
                     BltManager.getInstance().clickBlt(BlueToothActivity.this, BltContant.BLUE_TOOTH_CLOSE);
             }
@@ -230,7 +284,16 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
                 blt_status_text.setText("正在搜索设备，请等待");
                 BltManager.getInstance().clickBlt(this, BltContant.BLUE_TOOTH_SEARTH);
                 break;
-
+            case R.id.create_service://创建服务端
+                btl_bar.setVisibility(View.VISIBLE);
+                blt_status_text.setText("正在等待设备加入");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        BltService.getInstance().run(handler);
+                    }
+                }).start();
+                break;
         }
     }
 
@@ -239,7 +302,7 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final BluetoothDevice bluetoothDevice = bltList.get(position);
-       //滚动度可见
+        //滚动度可见
         btl_bar.setVisibility(View.VISIBLE);
         blt_status_text.setText("正在连接" + bluetoothDevice.getName());
         //链接的操作应该在子线程
@@ -260,11 +323,13 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
         public int getCount() {
             return bltList.size();
         }
-//返回值决定第position处的列表项的内容
+
+        //返回值决定第position处的列表项的内容
         @Override
         public Object getItem(int position) {
             return bltList.get(position);
         }
+
         //返回值决定第position处的列表项的ID
         @Override
         public long getItemId(int position) {
@@ -316,6 +381,28 @@ public class BlueToothActivity extends AppCompatActivity implements View.OnClick
         super.onDestroy();
         //页面关闭的时候要断开蓝牙
         BltManager.getInstance().unregisterReceiver(this);
+    }
+
+    //得到配对的设备列表，清除已配对的设备
+    public void removePairDevice() {
+        if (BltManager.getInstance().getmBluetoothAdapter() != null) {
+            Set<BluetoothDevice> bondedDevices = BltManager.getInstance().getmBluetoothAdapter().getBondedDevices();
+            for (BluetoothDevice device : bondedDevices) {
+                unpairDevice(device);
+            }
+        }
+
+    }
+
+    //反射来调用BluetoothDevice.removeBond取消设备的配对
+    private void unpairDevice(BluetoothDevice device) {
+        try {
+            Method m = device.getClass()
+                    .getMethod("removeBond", (Class[]) null);
+            m.invoke(device, (Object[]) null);
+        } catch (Exception e) {
+
+        }
     }
 }
 

@@ -28,8 +28,17 @@ public class ReceiveSocketService {
                     Message message = new Message();
                     message.obj = json;
                     message.what = 1;
+                    //预定3为获取番茄数.那么如何设定为变量
+                    message.what=3;
                     handler.sendMessage(message);
-                    //说明接下来会接收到一个文件流
+                    //判断读取到的内容，如果为 今日的番茄数为
+
+
+
+
+
+
+        //说明接下来会接收到一个文件流
                     if ("file".equals(json)) {
                         FileOutputStream fos = new FileOutputStream(Environment.getExternalStorageDirectory() + "/test.gif");
                         int length;

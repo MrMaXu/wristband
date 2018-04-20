@@ -1,4 +1,4 @@
-package com.example.wristband.activities;
+﻿package com.example.wristband.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +20,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.wristband.MainActivity;
 import com.example.wristband.R;
 import com.example.wristband.adapter.DAdapter;
 import com.example.wristband.bean.Doing;
@@ -107,7 +106,9 @@ public class PhoneModeActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:                 //点击返回
-                finish();
+                //修改为点击，退回主菜单。
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 break;
             case R.id.paint:
                 DAdapter.DOING_BACKGROUND = 0;
@@ -231,5 +232,18 @@ public class PhoneModeActivity extends AppCompatActivity{
         dAdapter.notifyDataSetChanged();
     }
 
+
+    //监听返回键，返回主菜单
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) { //表示按返回键 时的操作
+                // 监听到返回按钮点击事件
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }
