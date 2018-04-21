@@ -238,7 +238,7 @@ public  static BlueToothSocketActivity blueToothSocketActivity;
         textView.setText(message);
         return textView;
     }
-//监听返回键，返回 计划表
+    //监听返回键，返回 计划表
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
