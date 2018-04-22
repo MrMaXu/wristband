@@ -54,43 +54,43 @@ public class PhoneModeActivity extends AppCompatActivity{
 
         //点击进入记事本、未来计划
         FloatingActionButton phoneFab = (FloatingActionButton) findViewById(R.id.phone_fab);
-            phoneFab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AlertDialog.Builder help = new AlertDialog.Builder(PhoneModeActivity.this);
-                    final View phoneBottom = LayoutInflater.from(PhoneModeActivity.this).inflate(R.layout.phone_bottom_dialog,null);
-                    final AlertDialog dialog = help.setView(phoneBottom).create();
-                    dialog.setCanceledOnTouchOutside(true);
-                    ImageView node = phoneBottom.findViewById(R.id.node);
-                    ImageView future = phoneBottom.findViewById(R.id.future);
-                    node.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(PhoneModeActivity.this,NoteActivity.class);
-                            startActivity(intent);
-                            dialog.dismiss();
+        phoneFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder help = new AlertDialog.Builder(PhoneModeActivity.this);
+                final View phoneBottom = LayoutInflater.from(PhoneModeActivity.this).inflate(R.layout.phone_bottom_dialog,null);
+                final AlertDialog dialog = help.setView(phoneBottom).create();
+                dialog.setCanceledOnTouchOutside(true);
+                ImageView node = phoneBottom.findViewById(R.id.node);
+                ImageView future = phoneBottom.findViewById(R.id.future);
+                node.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PhoneModeActivity.this,NoteActivity.class);
+                        startActivity(intent);
+                        dialog.dismiss();
 
-                        }
-                    });
-                    future.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(PhoneModeActivity.this,NoteActivity.class);
-                            startActivity(intent);
-                            dialog.dismiss();
+                    }
+                });
+                future.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PhoneModeActivity.this,NoteActivity.class);
+                        startActivity(intent);
+                        dialog.dismiss();
 
-                        }
-                    });
-                    dialog.show();
-                    Window window = dialog.getWindow();
-                    window.setGravity(Gravity.BOTTOM);
-                    window.getDecorView().setPadding(0, 0, 0, 0);
-                    WindowManager.LayoutParams lp = window.getAttributes();
-                    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-                    window.setAttributes(lp);
-                    window.setBackgroundDrawableResource(android.R.color.transparent);//占据宽度显示
-                }
-            });
+                    }
+                });
+                dialog.show();
+                Window window = dialog.getWindow();
+                window.setGravity(Gravity.BOTTOM);
+                window.getDecorView().setPadding(0, 0, 0, 0);
+                WindowManager.LayoutParams lp = window.getAttributes();
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                window.setAttributes(lp);
+                window.setBackgroundDrawableResource(android.R.color.transparent);//占据宽度显示
+            }
+        });
         getData();
         doingRecycler = (RecyclerView) findViewById(R.id.phone_recycler);
         setDoingRecycler();
