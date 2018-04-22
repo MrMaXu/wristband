@@ -9,9 +9,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.wristband.MainActivity;
 import com.example.wristband.R;
+import com.example.wristband.adapter.DAdapter;
 import com.example.wristband.bluetooth.ReceiveSocketService;
 import com.example.wristband.bluetooth.SendSocketService;
 
@@ -51,7 +55,7 @@ public class BlueToothSocketActivity extends AppCompatActivity implements View.O
     private TextView phone_time;
     public String hour, minute, second;
 
-public  static BlueToothSocketActivity blueToothSocketActivity;
+    public static BlueToothSocketActivity blueToothSocketActivity;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -68,7 +72,7 @@ public  static BlueToothSocketActivity blueToothSocketActivity;
                     break;
 
 
-        }
+            }
         }
     };
 
@@ -79,8 +83,31 @@ public  static BlueToothSocketActivity blueToothSocketActivity;
         initData();
         initView();
 
-        blueToothSocketActivity=this;
+        blueToothSocketActivity = this;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:                 //点击返回
+                //修改为点击，退回主菜单。
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+
+            default:
+                break;
+        }
+        return true;
+    }
+
+
 
 
     //初始化视图
@@ -115,7 +142,10 @@ public  static BlueToothSocketActivity blueToothSocketActivity;
     //初始化数据
     public void initData() {
 
-
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         if(tv_now_tomato_time.getText()==null) {
             Intent intent = getIntent();
@@ -238,7 +268,7 @@ public  static BlueToothSocketActivity blueToothSocketActivity;
         textView.setText(message);
         return textView;
     }
-//监听返回键，返回 计划表
+/*//监听返回键，返回 计划表
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -249,7 +279,7 @@ public  static BlueToothSocketActivity blueToothSocketActivity;
             }
         }
         return super.onKeyDown(keyCode, event);
-    }
+    }*/
 
 }
 
