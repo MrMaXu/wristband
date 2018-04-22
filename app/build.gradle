@@ -51,6 +51,7 @@ dependencies {
     compile 'com.zhy:okhttputils:2.0.0'
     //Gson
     compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.roger.catloadinglibrary:catloadinglibrary:1.0.4'
 }
 repositories {
     maven { url "https://jitpack.io" }
