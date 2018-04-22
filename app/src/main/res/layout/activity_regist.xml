@@ -6,8 +6,6 @@
     tools:context="com.example.wristband.activities.LoginActivity"
     android:background="@drawable/login_bac">
 
-
-
     <ImageView
         android:id="@+id/login_button"
         android:layout_width="150dp"
@@ -36,7 +34,7 @@
             android:orientation="horizontal" >
 
             <EditText
-                android:id="@+id/user_phone"
+                android:id="@+id/r_user_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -61,6 +59,32 @@
             android:layout_marginRight="1.0px"
             android:background="#ffc0c3c4" />
 
+        <!-- 输入账号 -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/r_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:textSize="16sp"
+                android:ems="10"
+                android:hint="请输入用户名"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:cursorVisible="false"
+                >
+            </EditText>
+
+
+        </LinearLayout>
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="3.0px"
@@ -75,7 +99,7 @@
             android:gravity="center_vertical">
 
             <EditText
-                android:id="@+id/user_password"
+                android:id="@+id/r_user_password"
                 android:layout_width="fill_parent"
                 android:layout_height="44.0dip"
                 android:background="#00ffffff"
@@ -99,14 +123,13 @@
     <!--输入账号密码结束-->
 
     <Button
-
-        android:id="@+id/btn_login"
+        android:id="@+id/r_regist"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/input"
         android:layout_marginTop="50dp"
         android:background="#55585b"
-        android:text="登      录"
+        android:text="注      册"
         android:textColor="#ffffff"
         android:textSize="18dp"
         android:layout_centerHorizontal="true"
@@ -114,34 +137,5 @@
         android:layout_marginRight="28dp"
         />
 
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/btn_login"
-        android:id="@+id/register_forget"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:layout_marginLeft="28dp"
-            android:text="忘记密码？"
-            android:id="@+id/forget"
-            android:layout_below="@id/btn_login"
-            android:textColor="#fff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_marginLeft="190dp"
-            android:text="新用户注册"
-            android:id="@+id/btn_regist"
-            android:layout_below="@id/btn_login"
-            android:textColor="#fff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
 
 </RelativeLayout>

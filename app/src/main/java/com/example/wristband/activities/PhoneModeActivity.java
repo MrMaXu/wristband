@@ -1,4 +1,4 @@
-﻿package com.example.wristband.activities;
+package com.example.wristband.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -214,8 +214,8 @@ public class PhoneModeActivity extends AppCompatActivity{
                 mContext.startActivity(intent);
             }
         });
-        dAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-        dAdapter.isFirstOnly(false);
+        dAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);//动画
+        dAdapter.isFirstOnly(false);//每次都加载动画
         doingRecycler.setAdapter(dAdapter);//doingAdapter
     }
 

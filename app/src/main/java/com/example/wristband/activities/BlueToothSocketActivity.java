@@ -268,6 +268,7 @@ public class BlueToothSocketActivity extends AppCompatActivity implements View.O
         textView.setText(message);
         return textView;
     }
+
 /*//监听返回键，返回 计划表
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
