@@ -35,4 +35,11 @@
         app:showAsAction="always"
         />
 
+    <item
+        android:title="刷新"
+        android:icon="@drawable/refresh"
+        android:id="@+id/refresh"
+        app:showAsAction="always"
+        />
+
 </menu>

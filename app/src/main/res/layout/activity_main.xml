@@ -8,6 +8,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_bac_color"
     >
 
     <android.support.design.widget.CoordinatorLayout
@@ -32,6 +33,7 @@
         </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
+
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -55,13 +57,12 @@
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:hint="(每次启动app，请先请先关闭系统蓝牙，在进入蓝牙模块)"/>
-                  <Button
-                      android:layout_gravity="center"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="关闭手机系统蓝牙"
-                      android:onClick="test"/>
-
+                  <!--<Button-->
+                      <!--android:layout_gravity="center"-->
+                      <!--android:layout_width="wrap_content"-->
+                      <!--android:layout_height="wrap_content"-->
+                      <!--android:text="关闭手机系统蓝牙"-->
+                      <!--android:onClick="test"/>-->
 
             <Button
                 android:id="@+id/phone"
@@ -71,7 +72,7 @@
                 android:layout_height="150dp"
                 android:layout_gravity="bottom|center"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/button_selector"
+                android:background="@drawable/button_selector_second"
                 />
 
         </LinearLayout>

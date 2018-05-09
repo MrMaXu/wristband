@@ -26,8 +26,8 @@
     <item>
         <shape>
             <gradient
-                android:startColor="#ff00aced"
-                android:endColor="#ff00aced"
+                android:startColor="#5d4157"
+                android:endColor="#a8caba"
                 android:angle="0" />
             <corners
                 android:radius="4dp" />

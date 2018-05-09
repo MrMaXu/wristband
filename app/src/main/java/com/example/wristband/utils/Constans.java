@@ -10,6 +10,8 @@ import java.util.List;
 
 public class Constans {
 
+    public static String USER_NAME = "";//账户名称
+
     public static String httpHead = "http://192.168.128.66:8080/";
 
     //User Controller Url

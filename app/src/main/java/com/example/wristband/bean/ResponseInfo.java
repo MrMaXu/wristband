@@ -5,15 +5,6 @@ package com.example.wristband.bean;
  */
 
 public class ResponseInfo {
-
-    /**
-     * code : 1
-     * content : 手机号已存在
-     */
-
-    private int code;
-    private String content;
-
     public int getCode() {
         return code;
     }
@@ -29,4 +20,11 @@ public class ResponseInfo {
     public void setContent(String content) {
         this.content = content;
     }
+
+    /**
+     * code : 1
+     * content : 手机号已存在
+     */
+    private int code;
+    private String content;
 }
