@@ -31,8 +31,6 @@ import lecho.lib.hellocharts.view.ColumnChartView;
 
 public class ColumnPlaceholderFragment extends Fragment {
 
-
-
         private static final int DEFAULT_DATA = 0;
         private static final int SUBCOLUMNS_DATA = 1;
         private static final int STACKED_DATA = 2;

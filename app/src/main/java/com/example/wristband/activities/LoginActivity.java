@@ -1,6 +1,5 @@
 package com.example.wristband.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
@@ -46,7 +45,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 mCatLoading.dismiss();
                 Gson gson = new Gson();
                 ResponseInfo  responseInfo = gson.fromJson(msg.obj.toString(),ResponseInfo.class);
-                if (responseInfo.getCode() == 1){
+                if (responseInfo.getCode() == 0){
+                    Constans.USER_NAME = u_phone;
                     Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(LoginActivity.this,"登录失败，因为"+responseInfo.getContent(),Toast.LENGTH_SHORT).show();
@@ -95,10 +95,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void run() {
                 OkHttpUtils
-                        .post()
+                        .get()
                         .url(url)
-                        .addParams("u_phone",u_phone)
-                        .addParams("password",password)
+                        .addParams("uPhone",u_phone)
+                        .addParams("uPassword",password)
                         .build()
                         .connTimeOut(5000)
                         .execute(new StringCallback() {

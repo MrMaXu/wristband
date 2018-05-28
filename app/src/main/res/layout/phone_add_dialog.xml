@@ -1,26 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+    android:gravity="center"
     >
 
-    <EditText
-        android:id="@+id/add_name"
-        android:layout_width="match_parent"
+    <LinearLayout
+
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:hint="活动名称"
-        />
-    <EditText
-        android:id="@+id/add_timelong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:inputType="number"
-        android:hint="番茄时间，只能输入数字"
-        />
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/add_name"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textSize="16dp"
+            android:hint="活动名称"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:background="@drawable/bg_edittext"
+            android:paddingLeft="5dp"
+            />
+
+        <TextView
+            android:layout_marginTop="3dp"
+            android:text="选择番茄时间："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginTop="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/time25"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:text="25分钟"
+                android:background="@drawable/add_doing_button_selector"
+                android:layout_width="30dp"
+                android:layout_height="20dp" />
+
+            <Button
+                android:id="@+id/time30"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:text="30分钟"
+                android:background="@drawable/add_doing_button_selector"
+                android:layout_width="30dp"
+                android:layout_height="20dp" />
+
+            <Button
+                android:id="@+id/timeself"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:text="自定义"
+                android:background="@drawable/add_doing_button_selector"
+                android:layout_width="30dp"
+                android:layout_height="20dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

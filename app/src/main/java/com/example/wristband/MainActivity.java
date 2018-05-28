@@ -1,6 +1,7 @@
 package com.example.wristband;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -10,7 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,18 +20,15 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.wristband.activities.BlueToothActivity;
-import com.example.wristband.activities.BlueToothSocketActivity;
 import com.example.wristband.activities.LoginActivity;
 import com.example.wristband.activities.PhoneModeActivity;
 import com.example.wristband.activities.StatisticsActivity;
-import com.example.wristband.bluetooth.BltContant;
-import com.example.wristband.bluetooth.BltManager;
-import com.example.wristband.bluetooth.BltService;
 import com.gc.materialdesign.widgets.ColorSelector;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -42,8 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.mainToolBar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolBar);
         setSupportActionBar(toolbar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -69,17 +68,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         startActivity(intent);
                         break;
                     case R.id.summary:
-                        Toast.makeText(MainActivity.this,"点击总结",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "点击总结", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
-                        Toast.makeText(MainActivity.this,"点击关于",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "点击关于", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.back_us:
-                        Toast.makeText(MainActivity.this,"点击设置",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "点击设置", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.help:
                         AlertDialog.Builder help = new AlertDialog.Builder(MainActivity.this);
-                        final View helpDialogView = LayoutInflater.from(MainActivity.this).inflate(R.layout.main_nav_help,null);
+                        final View helpDialogView = LayoutInflater.from(MainActivity.this).inflate(R.layout.main_nav_help, null);
                         final AlertDialog dialog = help.setView(helpDialogView).create();
                         dialog.setCanceledOnTouchOutside(true);
                         Window window = dialog.getWindow();
@@ -90,13 +89,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         connect.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(MainActivity.this,"点击联系",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "点击联系", Toast.LENGTH_SHORT).show();
                             }
                         });
                         feedBack.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(MainActivity.this,"点击反馈",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "点击反馈", Toast.LENGTH_SHORT).show();
                             }
                         });
                         cancle.setOnClickListener(new View.OnClickListener() {
@@ -111,13 +110,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         ColorSelector colorSelector = new ColorSelector(MainActivity.this, R.color.colorAccent, new ColorSelector.OnColorSelectedListener() {
                             @Override
                             public void onColorSelected(int i) {
-                                Toast.makeText(MainActivity.this,"颜色："+i,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "颜色：" + i, Toast.LENGTH_SHORT).show();
                             }
                         });
                         colorSelector.show();
                         break;
                     case R.id.choose_poster:
-                        Toast.makeText(MainActivity.this,"点击选择海报",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "点击选择海报", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;
@@ -173,15 +172,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.username:
             case R.id.mail:
             case R.id.icon_image:
-                Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
+                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
                 break;
             default:
                 break;
         }
     }
+
     //关闭手机系统蓝牙的按钮
-    public void test(View view){
+    public void test(View view) {
         //打开系统自带蓝牙页面
         this.startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));
     }

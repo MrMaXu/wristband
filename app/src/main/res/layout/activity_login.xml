@@ -6,8 +6,6 @@
     tools:context="com.example.wristband.activities.LoginActivity"
     android:background="@drawable/login_bac">
 
-
-
     <ImageView
         android:id="@+id/login_button"
         android:layout_width="150dp"
@@ -53,13 +51,6 @@
 
 
         </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="3.0px"
-            android:layout_marginLeft="1.0px"
-            android:layout_marginRight="1.0px"
-            android:background="#ffc0c3c4" />
 
         <View
             android:layout_width="fill_parent"
